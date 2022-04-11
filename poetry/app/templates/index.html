@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>自动启停服务</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../static/css/layui.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script type="text/javascript" src="../static/js/jquery-1.11.3.min.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<div>
+    <form class="layui-form" id="add" style="display:none">
+        <div class="layui-form-item" style="display: none">
+            <div class="layui-input-block">
+                <input type="text" name="p_id" placeholder="" autocomplete="on"
+                       class="layui-input" id="p_id" style="width:200px">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-top: 20px">
+            <label class="layui-form-label layui-required">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="" autocomplete="on"
+                       class="layui-input" id="name" style="width:200px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-required">tomcat地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="tomcat_address" required lay-verify="required" placeholder="" autocomplete="on"
+                       class="layui-input" id="tomcat_address" style="width:350px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-required">程序包地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="package_address" required lay-verify="required" placeholder=""
+                       autocomplete="on"
+                       class="layui-input" id="package_address" style="width:350px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-required">替换路径</label>
+            <div class="layui-input-block">
+                <input type="text" name="replace_address" required lay-verify="required" placeholder=""
+                       autocomplete="on"
+                       class="layui-input" id="replace_address" style="width:350px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-required">包名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="package_name" required lay-verify="required" placeholder="" autocomplete="on"
+                       class="layui-input" id="package_name" style="width:200px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-required">端口</label>
+            <div class="layui-input-block">
+                <input type="text" name="port" required lay-verify="required" placeholder="" autocomplete="on"
+                       class="layui-input" id="port" style="width:200px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="add_submit">立即提交</button>
+            </div>
+        </div>
+    </form>
+    <form class="layui-form" id="add_config" style="display:none">
+        <div class="layui-form-item" style="display: none">
+            <div class="layui-input-block">
+                <input type="text" name="p_id_config" placeholder="" autocomplete="on"
+                       class="layui-input" id="p_id_config" style="width:200px">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-top: 20px">
+            <label class="layui-form-label layui-required">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name_config" required lay-verify="required" placeholder="" autocomplete="on"
+                       class="layui-input" id="name_config" style="width:200px">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-required">配置文件地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="package_address_config" required lay-verify="required" placeholder=""
+                       autocomplete="on"
+                       class="layui-input" id="package_address_config" style="width:350px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-required">服务器中替换文件路径</label>
+            <div class="layui-input-block">
+                <input type="text" name="replace_address_config" required lay-verify="required" placeholder=""
+                       autocomplete="on"
+                       class="layui-input" id="replace_address_config" style="width:350px">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="add_config_submit">立即提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+<div>
+    <div style="margin-top: 13%; align-content: center; font-size: 20px; color: red;">
+        <span style="margin-left: 43%">通知-5月24日：</span><br>
+        <span style="margin-left: 26%">*1、上传程序包将自动解压，可上传程序包之后直接上传替换文件！</span><br>
+        <span style="margin-left: 26%">*2、上传程序包时会删除名称中的空格、括号及括号中内容、-0.0.1。</span><br>
+        <span style="margin-left: 26%">*3、配置文件压缩包会自动解压到相应层级,文件过大时，耗时较久，请耐心等待！</span><br>
+        <br>
+        <span style="margin-left: 43%">*使用本系统注意事项：</span><br>
+        <span style="margin-left: 26%">*1、停止服务：根据端口查找对应进程，通过直接杀死进程的方式停止服务！</span><br>
+        <span style="margin-left: 26%">*2、删除包：根据填写的包名称且以“|”分割分别删除包文件夹及压缩包war包！</span><br>
+        <span style="margin-left: 26%">*3、删除临时文件和work文件：根据填写的包路径webapps替换为temp和work！</span><br>
+        <span style="margin-left: 26%">*4、上传包和替换文件分别根据包路径和替换文件路径替换(上传的包和替换文件会自动去除括号及括号中的内容)</span><br><br>
+        <span style="margin-left: 22%">*5、换包操作顺序：停止服务-->删除包和临时文件-->上传包-->启动服务进行解压-->停止服务-->上传替换文件-->启动服务！</span><br>
+        <span style="margin-left: 22%">*6、如有疑问，请联系：余日晖！</span><br>
+    </div>
+</div>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add_config">添加配置</button>
+        <button class="layui-btn layui-btn-sm" lay-event="del">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="control">监控</button>
+        <button class="layui-btn layui-btn-sm" lay-event="connect_user">远程连接者</button>
+        <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>-->
+        <!--<button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>-->
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="start">启动</a>
+    <!--lay-data="{url: '/upload_package_file?d.id\}}'}"-->
+    <button class="layui-btn layui-btn-xs upload" lay-event="upload_package_file"
+            lay-data="{url: '/upload_package_file'}">上传并解压包
+    </button>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_tmp">删除临时文件</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_package_file">删除包</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stop">停止</a>
+
+</script>
+
+
+<script src="../static/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+    layui.use(['table', 'form', 'upload'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var upload = layui.upload;
+
+        table.render({
+            elem: '#test'
+            , url: '/get_package'
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: ['exports', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            , title: '数据表'
+            , done: function (res, curr, count) {
+                // 上传文件
+                var tableId = this.id;
+                var tableElem = this.elem;
+                //table render出来实际显示的table组件
+                var tableViewElem = tableElem.next();
+                console.log('aaaa:', res, curr, count)
+                var uploadIns = upload.render({
+                    elem: '.upload'
+                    , url: '/upload_package_file' //改成您自己的上传接口
+                    , accept: 'file' //普通文件
+                    , before: function (obj) { //obj包含信息，跟choose回调完全一致。在传值之前先获取id
+                        console.log(this.item.attr('value'))
+                        var tableElem = this.item;
+                        uploadParam = tableElem.attr('value');
+                        layer.load(); //上传loading
+                    }
+                    , data: {
+                        id: function () {//data中写值的时候，要用动态获取的方式，即写个function的方式，不然直接写获取不到相应的值。
+                            return uploadParam;
+                        }
+                    }
+                    , done: function (res) {
+                        layer.closeAll('loading'); //关闭loading
+                        layer.msg(res['data']);
+                        console.log(res);
+                    }
+                });
+                var uploadInsReplace = upload.render({
+                    elem: '.upload_replace'
+                    , url: '/upload_replace_file' //改成您自己的上传接口
+                    , accept: 'file' //普通文件
+                    , before: function (obj) { //obj包含信息，跟choose回调完全一致。在传值之前先获取id
+                        console.log(this.item.attr('value'))
+                        var tableElem = this.item;
+                        uploadParam = tableElem.attr('value');
+                        layer.load(); //上传loading
+                    }
+                    , data: {
+                        id: function () {//data中写值的时候，要用动态获取的方式，即写个function的方式，不然直接写获取不到相应的值。
+                            return uploadParam;
+                        }
+                    }
+                    , done: function (res) {
+                        layer.closeAll('loading'); //关闭loading
+                        layer.msg(res['data']);
+                        console.log(res);
+                    }
+                });
+                var uploadInsReplaceConfig = upload.render({
+                    elem: '.upload_replace_config'
+                    , url: '/upload_replace_config_file' //改成您自己的上传接口
+                    , accept: 'file' //普通文件
+                    , before: function (obj) { //obj包含信息，跟choose回调完全一致。在传值之前先获取id
+                        console.log(this.item.attr('value'))
+                        var tableElem = this.item;
+                        uploadParam = tableElem.attr('value');
+                        layer.load(); //上传loading
+                    }
+                    , data: {
+                        id: function () {//data中写值的时候，要用动态获取的方式，即写个function的方式，不然直接写获取不到相应的值。
+                            return uploadParam;
+                        }
+                    }
+                    , done: function (res) {
+                        layer.closeAll('loading'); //关闭loading
+                        layer.msg(res['data']);
+                        console.log(res);
+                    }
+                });
+                table.render()
+            }
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'id', title: 'ID', width: '4%', fixed: 'left', unresize: true,}
+                , {field: 'package_id', hide: true}
+                , {field: 'is_config', hide: true}
+                , {field: 'name', title: '名称', width: '10%'}
+                , {field: 'tomcat_address', title: 'tomcat地址', width: '12%',}
+                , {field: 'package_address', title: '程序包位置', width: '12%',}
+                , {field: 'replace_address', title: '替换路径', width: '12%',}
+                , {field: 'package_name', title: '包名称', width: '8%'}
+                , {field: 'port', title: '端口', width: '5%'}
+                // , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
+                , {
+                    fixed: 'right', title: '操作', templet: function (d) {
+                        if (d.is_config === 1) {
+                            return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>\n' +
+                                '    <button class="layui-btn layui-btn-xs upload_replace_config" lay-event="upload_replace_config_file" value=' + d.package_id + '>传zip压缩包并替换\n' +
+                                '    </button>\n' +
+                                '    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_config_file">删除配置文件</a>\n'
+                        } else {
+                            return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>\n' +
+                                '    <a class="layui-btn layui-btn-xs" lay-event="start">启动</a>\n' +
+                                '    <a class="layui-btn layui-btn-xs" lay-event="run_state">运行状态</a>\n' +
+                                '    <!--lay-data="{url: \'/upload_package_file?d.id\\}}\'}"-->\n' +
+                                '    <button class="layui-btn layui-btn-xs upload" lay-event="upload_package_file" value=' + d.package_id + '>传包并解压\n' +
+                                '    </button>\n' +
+                                '    <button class="layui-btn layui-btn-xs upload_replace" lay-event="upload_package_file" value=' + d.package_id + '>传替换\n' +
+                                '    </button>\n' +
+                                // '    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_tmp">删除临时文件</a>\n' +
+                                '    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_package_file">删除包临时文件</a>\n' +
+                                '    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stop">停止</a>'
+                        }
+
+                    }
+                }
+            ]]
+            , page: true
+        });
+
+
+        //头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'add':
+                    layer.open({
+                        type: 1,
+                        area: ['35%', '60%'],
+                        title: '添加'
+                        , content: $("#add"),
+                        shade: 0,
+                        success: function (layero, index) {
+                            // $("#reset").style.display = 'block';
+                        },
+                        end: function () {
+                            //window.parent.location.reload();//刷新父页面
+                            // location.reload();
+                        }
+                    });
+                    break;
+                case 'add_config':
+                    layer.open({
+                        type: 1,
+                        area: ['35%', '60%'],
+                        title: '添加配置'
+                        , content: $("#add_config"),
+                        shade: 0,
+                        success: function (layero, index) {
+                            // $("#reset").style.display = 'block';
+                        },
+                        end: function () {
+                            //window.parent.location.reload();//刷新父页面
+                            // location.reload();
+                        }
+                    });
+                    break;
+                case 'del':
+                    layer.confirm('真的删除行么', function (index) {
+                        var data = checkStatus.data;
+                        // console.log(data)
+                        layer.close(index);
+                        if (data.length > 1) {
+                            layer.msg('只能选择一个进行删除！');
+                        } else {
+                            layer.load(); //上传loading
+                            $.ajax({
+                                url: '/del_package',
+                                type: "post",
+                                dataType: "json",
+                                data: data[0],
+                                success: function (data) {
+                                    layer.closeAll('loading')
+                                    layer.msg(data['data'])
+                                    if (data['code'] === 0) {
+                                        location.reload();
+                                    }
+                                    // table.render();
+                                }
+                            })
+                        }
+                        // console.log(data)
+
+                        // console.log(data)
+
+                    });
+                    break;
+                case 'control':
+                    layer.load();
+                    $.ajax({
+                        url: '/control',
+                        type: "post",
+                        dataType: "json",
+                        data: '',
+                        success: function (data) {
+                            layer.closeAll('loading');
+                            let msg = data['data'];
+                            let msg_all = ''
+                            for (let i = 0; i < msg.length; i++) {
+                                msg_all += '<span>' + msg[i] + '</span></br>'
+                            }
+                            layer.open({
+                                title: '监控信息',
+                                content: msg_all
+                            })
+                            // if (data['code'] === 0) {
+                            // location.reload();
+                            // }
+                        }
+                    })
+                    break
+                case 'connect_user':
+                    layer.load();
+                    $.ajax({
+                        url: '/connect_user',
+                        type: "post",
+                        dataType: "json",
+                        data: '',
+                        success: function (data) {
+                            layer.closeAll('loading');
+                            let msg = data['data'];
+                            // let msg_all = ''
+                            // for (let i = 0; i < msg.length; i++) {
+                            //     msg_all += '<span>' + msg[i] + '</span></br>'
+                            // }
+                            layer.open({
+                                title: '远程连接者信息',
+                                content: msg
+                            })
+                            // if (data['code'] === 0) {
+                            // location.reload();
+                            // }
+                        }
+                    })
+                    break
+                // case 'getCheckLength':
+                //     var data = checkStatus.data;
+                //     layer.msg('选中了：' + data.length + ' 个');
+                //     break;
+                // case 'isAll':
+                //     layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                //     break;
+
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;
+            }
+            ;
+        });
+
+        //监听提交
+        form.on('submit(add_submit)', function (data) {
+
+            $.ajax({
+                url: '/add_package',
+                type: "post",
+                dataType: "json",
+                data: data.field,
+                success: function (data) {
+                    layer.closeAll();
+                    if (data['code'] === 0) {
+                        location.reload();
+                    }
+                    layer.msg(data['data']);
+                }
+            })
+            return false;
+        });
+
+        //监听配置提交
+        form.on('submit(add_config_submit)', function (data) {
+
+            $.ajax({
+                url: '/add_package_config',
+                type: "post",
+                dataType: "json",
+                data: data.field,
+                success: function (data) {
+                    layer.closeAll();
+                    if (data['code'] === 0) {
+                        location.reload();
+                    }
+                    layer.msg(data['data']);
+                }
+            })
+            return false;
+        });
+
+        //指定允许上传的文件类型
+        upload.render({
+            elem: '.upload'
+            , url: '/upload' //改成您自己的上传接口
+            , accept: 'file' //普通文件
+            , done: function (res) {
+                layer.msg('上传成功');
+                console.log(res);
+            }
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            //console.log(obj)
+            if (obj.event === 'del_tmp') {
+                let temp = data['tomcat_address']
+                temp = temp.replace('bin', 'temp')
+                layer.confirm('确定删除' + temp + '文件夹中的文件吗？', function (index) {
+                    layer.close(index);
+                    // console.log(data)
+                    layer.load(); //上传loading
+                    $.ajax({
+                        url: '/del_package_temp',
+                        type: "post",
+                        dataType: "json",
+                        data: {'temp': temp},
+                        success: function (data) {
+                            layer.closeAll('loading')
+                            layer.msg(data['data'])
+                            // console.log(data)
+                        }
+                    })
+                });
+            } else if (obj.event === 'del_package_file') {
+                layer.confirm('确定删除以下文件夹中的对应程序包: <strong>' + data['package_name'] + '</strong></br><b>' + data['package_address'] + '</b></br>  及对应临时  <b>temp</b>  和  <b>work</b>  文件吗？', function (index) {
+                    layer.close(index);
+                    // console.log(data)
+                    layer.load(); //上传loading
+                    $.ajax({
+                        url: '/del_package_file',
+                        type: "post",
+                        dataType: "json",
+                        data: data,
+                        success: function (data) {
+                            layer.closeAll('loading')
+                            layer.msg(data['data'])
+                            // console.log(data)
+                        }
+                    })
+                });
+            } else if (obj.event === 'del_config_file') {
+                layer.confirm('确定删除以下文件夹中的所有文件吗？: <strong>' + data['package_address'] + '</strong>', function (index) {
+                    layer.close(index);
+                    // console.log(data)
+                    layer.load(); //上传loading
+                    $.ajax({
+                        url: '/del_config_file',
+                        type: "post",
+                        dataType: "json",
+                        data: data,
+                        success: function (data) {
+                            layer.closeAll('loading')
+                            layer.msg(data['data'])
+                            // console.log(data)
+                        }
+                    })
+                });
+            } else if (obj.event === 'edit') {
+                if (data.is_config === 1) {
+                    var index = layer.open({
+                        type: 1,
+                        area: ['35%', '60%'],
+                        title: '编辑'
+                        , content: $("#add_config"),
+                        shade: 0,
+                        success: function (layero, index) {
+                            // console.log('aaaa:', layero, index);
+                            // var body = layui.layer.getChildFrame('body', index);
+                            // console.log(body);
+                            $("#p_id_config").val(data.package_id);
+                            $("#name_config").val(data.name);
+                            $("#package_address_config").val(data.package_address);
+                            $("#replace_address_config").val(data.replace_address);
+                            form.render();
+                        },
+                        end: function () {
+                            //window.parent.location.reload();//刷新父页面
+                            // location.reload();
+                        }
+                    });
+                } else {
+                    var index = layer.open({
+                        type: 1,
+                        area: ['35%', '60%'],
+                        title: '编辑'
+                        , content: $("#add"),
+                        shade: 0,
+                        success: function (layero, index) {
+                            // console.log('aaaa:', layero, index);
+                            // var body = layui.layer.getChildFrame('body', index);
+                            // console.log(body);
+                            $("#p_id").val(data.package_id);
+                            $("#name").val(data.name);
+                            $("#tomcat_address").val(data.tomcat_address);
+                            $("#package_address").val(data.package_address);
+                            $("#replace_address").val(data.replace_address);
+                            $("#package_name").val(data.package_name);
+                            $("#port").val(data.port);
+                            form.render();
+                        },
+                        end: function () {
+                            //window.parent.location.reload();//刷新父页面
+                            // location.reload();
+                        }
+                    });
+                }
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'run_state') {
+                layer.load();
+                $.ajax({
+                    url: '/run_state',
+                    type: "post",
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        layer.closeAll('loading');
+                        layer.msg(data['data'])
+                        // if (data['code'] === 0) {
+                        // location.reload();
+                        // }
+                    }
+                })
+            } else if (obj.event === 'upload_package_file') {
+                console.log('上传文件：', data)
+
+            } else if (obj.event === 'start') {
+                layer.load(); //上传loading
+                $.ajax({
+                    url: '/start_package',
+                    type: "post",
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        layer.closeAll('loading')
+                        // console.log(data)
+                        layer.msg(data['data'])
+                    }
+                })
+            } else if (obj.event === 'stop') {
+                // layer.msg('yige')
+                layer.confirm('确定停止服务吗？', function (index) {
+                    layer.close(index);
+                    layer.load(); //上传loading
+                    let result = ''
+                    $.ajax({
+                        url: '/stop_package',
+                        type: "post",
+                        dataType: "json",
+                        data: data,
+                        success: function (data) {
+                            // console.log(data)
+                            layer.closeAll('loading');
+                            layer.msg(data['data'])
+                        }
+
+                    })
+
+                })
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>

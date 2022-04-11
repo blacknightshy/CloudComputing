@@ -1,0 +1,228 @@
+2022-04-07 13:46:54,789 - app - ERROR - Exception on /api/add [POST]
+Traceback (most recent call last):
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Programs\python385\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\own\poetry\app\main\views.py", line 45, in add
+    author = request.data['author']
+TypeError: byte indices must be integers or slices, not str
+2022-04-07 13:49:18,049 - app - ERROR - Exception on /api/add [POST]
+Traceback (most recent call last):
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Programs\python385\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\own\poetry\app\main\views.py", line 50, in add
+    url = 'https://poetrydb.org/author/'+author
+TypeError: can only concatenate str (not "dict") to str
+2022-04-07 16:44:08,663 - app - ERROR - Exception on /api/query [GET]
+Traceback (most recent call last):
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Programs\python385\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Programs\python385\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\own\poetry\app\main\views.py", line 145, in query
+    query_lines = query_lines.relpace('><', '\n')
+AttributeError: 'str' object has no attribute 'relpace'
+2022-04-07 20:59:38,194 - app - ERROR - Exception on /api/add/user [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 25, in wrapper
+    return fun(None)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 35, in add_user
+    role = Role.query.get(user.role_id)
+AttributeError: 'NoneType' object has no attribute 'role_id'
+2022-04-07 21:08:44,881 - app - ERROR - Exception on /api/login [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 34, in login
+    data = json.loads(request.data)
+  File "d:\programs\python\lib\json\__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "d:\programs\python\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "d:\programs\python\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2022-04-07 21:13:21,405 - app - ERROR - Exception on /api/login [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 50, in login
+    token = user.generate_auth_token()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\models.py", line 66, in generate_auth_token
+    "exp": int(time.time()) + current_app.config['TOKEN_TIME'],
+KeyError: 'TOKEN_TIME'
+2022-04-07 21:17:49,353 - app - ERROR - Exception on /api/add/user [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 27, in wrapper
+    user = User.verify_auth_token(token=token)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\models.py", line 76, in verify_auth_token
+    if user and user.state:
+AttributeError: 'User' object has no attribute 'state'
+2022-04-07 21:45:00,489 - app - ERROR - Exception on /api/query [GET]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 250, in query
+    query_poetry = Poetry.query.paginate(page=page, per_page=limit).all()
+AttributeError: 'Pagination' object has no attribute 'all'
+2022-04-07 21:45:15,253 - app - ERROR - Exception on /api/query [GET]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 254, in query
+    for query_one in query_poetry:
+TypeError: 'Pagination' object is not iterable
+2022-04-07 21:46:50,457 - app - ERROR - Exception on /api/add [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 28, in wrapper
+    return fun(user)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 118, in add
+    abort(400, message='need author!')
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\werkzeug\exceptions.py", line 878, in abort
+    _aborter(status, *args, **kwargs)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+TypeError: __init__() got an unexpected keyword argument 'message'
+2022-04-07 22:05:03,999 - app - ERROR - Exception on /api/update [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 28, in wrapper
+    return fun(user)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 183, in update
+    lines_str += '<' + lines_one + '>'
+TypeError: can only concatenate str (not "int") to str
+2022-04-07 22:07:50,154 - app - ERROR - Exception on /api/add/user [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\app\main\views.py", line 23, in wrapper
+    data = json.loads(data)
+  File "d:\programs\python\lib\json\__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "d:\programs\python\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "d:\programs\python\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 10 (char 9)
+2022-04-07 22:12:23,656 - app - ERROR - Exception on /api/delete [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1545, in finalize_request
+    response = self.make_response(rv)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1701, in make_response
+    raise TypeError(
+TypeError: The view function for 'main.delete' did not return a valid response. The function either returned None or ended without a return statement.
+2022-04-07 22:14:14,618 - app - ERROR - Exception on /api/delete [POST]
+Traceback (most recent call last):
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1545, in finalize_request
+    response = self.make_response(rv)
+  File "D:\project\ÏÐÓã-shinfy-ishinfy\poetry\venvv\lib\site-packages\flask\app.py", line 1701, in make_response
+    raise TypeError(
+TypeError: The view function for 'main.delete' did not return a valid response. The function either returned None or ended without a return statement.
